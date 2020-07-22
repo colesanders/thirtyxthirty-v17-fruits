@@ -1,0 +1,59 @@
+<mat-card class="mat-card-light"> 
+    <mat-card-header style="display: flex; justify-content: space-between;">
+      <mat-card-title class="accent">
+        <span *ngIf="fruitForm.value.id !== null; else elseBlock">
+          Editing Fruit
+        </span>
+        <ng-template #elseBlock>
+          Create Fruit
+        </ng-template>
+      </mat-card-title>
+      
+    </mat-card-header>
+  <form [formGroup]="fruitForm" (ngSubmit)="saved.emit(fruitForm.value)">
+    <mat-card-content>
+
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="string">
+      </mat-form-field>
+      <br>
+
+
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" type="string">
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <mat-label [style]="'color: ' + fruitForm.value.color">Color</mat-label>
+        <input matInput formControlName="color" type="string">
+      </mat-form-field>
+      <br>
+
+
+      <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input matInput formControlName="amount" type="number">
+      </mat-form-field>
+      <br>
+
+      <section>
+        <mat-button-toggle-group style="width:100%;" formControlName="icon">
+          <mat-button-toggle style="width: 25%" *ngFor="let icon of fruitIcons" [value]="icon">
+            <mat-icon [svgIcon]="icon" ></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+      <br>
+
+    </mat-card-content>
+    <mat-card-actions style="display: flex; justify-content: space-between;">
+      <button [disabled]="fruitForm.invalid" type="submit" mat-button color="primary">Save</button>
+      <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();cancel();">
+        Cancel
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

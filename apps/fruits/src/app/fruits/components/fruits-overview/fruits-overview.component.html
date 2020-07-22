@@ -1,0 +1,22 @@
+<mat-card class="mat-card-light"> 
+    <div *ngIf="(fruit$|async) !== undefined && (fruit$|async) !== null">
+      <mat-card-header style="display: flex; justify-content: space-between;">
+        <mat-card-title class="accent">
+          Fruit: 
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ (fruit$ | async).name }} - {{ (fruit$ | async).amount }}
+        </mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-card-content>
+          {{fruit$ | async | json}}
+      </mat-card-content>
+  
+      <mat-card-actions style="display: flex; justify-content: space-between;">
+        <button type="button" mat-button (click)="close()">
+          Close
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card>

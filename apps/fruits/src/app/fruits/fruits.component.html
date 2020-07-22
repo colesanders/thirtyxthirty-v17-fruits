@@ -1,0 +1,30 @@
+<div class="secondary-div">
+    <mat-toolbar class="secondary-toolbar">
+        <span>Fruit List</span>
+        <div *ngIf="(fruit$|async) !== undefined && (fruit$|async) !== null" style="margin-left: 10px">
+            <a mat-button class="nav-link" 
+            [routerLink]="(fruit$ | async).id" routerLinkActive="active">
+                <span >
+                  Fruit Overview
+                </span>
+            </a>
+        </div>
+    </mat-toolbar>
+</div>
+
+<div class="fruits-containers">
+    <div class="fruits-list">
+        <thirty-fruits-list [fruits]="fruits$ | async" (selected)="select($event)" (deleted)="delete($event)">
+        </thirty-fruits-list>
+    </div>
+    <div [@openClose]="detailOpen ? 'open' : 'closed'" >
+        <thirty-fruits-detail [fruit]="fruit$ | async" (saved)="save($event)" (cancelled)="cancel()" 
+        (click)="focusDetail();$event.stopImmediatePropagation()" > 
+        </thirty-fruits-detail>
+    </div>
+</div>
+
+<div class="fruits-containers">
+    <router-outlet>
+    </router-outlet>
+</div>
